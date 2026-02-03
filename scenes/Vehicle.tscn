@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://6yhdtc6v8e8b"]
+
+[ext_resource type="Script" uid="uid://s3v7em1vu4se" path="res://scenes/vehicle.gd" id="1_g2lsg"]
+[ext_resource type="ArrayMesh" uid="uid://dr3piiykwf6uj" path="res://assests/OBJ format/vehicle-racer.obj" id="1_ub8q0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g2lsg"]
+size = Vector3(0.51190186, 0.50123596, 0.8782959)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ub8q0"]
+properties/0/path = NodePath(".:rotation")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="VehicleBody3D" type="VehicleBody3D"]
+script = ExtResource("1_g2lsg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_ub8q0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0010681152, 0.24938202, 6.1035156e-05)
+shape = SubResource("BoxShape3D_g2lsg")
+
+[node name="VehicleWheel3D" type="VehicleWheel3D" parent="."]
+transform = Transform3D(-0.25, 0, 2.1855694e-08, 0, 0.25, 0, -2.1855694e-08, 0, -0.25, 0.23142505, 0.12225543, -0.25434285)
+use_as_steering = true
+
+[node name="VehicleWheel3D2" type="VehicleWheel3D" parent="."]
+transform = Transform3D(-0.25, 0, 2.1855694e-08, 0, 0.25, 0, -2.1855694e-08, 0, -0.25, -0.22709787, 0.12225543, -0.25434285)
+use_as_steering = true
+
+[node name="VehicleWheel3D3" type="VehicleWheel3D" parent="."]
+transform = Transform3D(-0.25, 0, 2.1855694e-08, 0, 0.25, 0, -2.1855694e-08, 0, -0.25, -0.22709787, 0.12225543, 0.24379674)
+use_as_traction = true
+
+[node name="VehicleWheel3D4" type="VehicleWheel3D" parent="."]
+transform = Transform3D(-0.25, 0, 2.1855694e-08, 0, 0.25, 0, -2.1855694e-08, 0, -0.25, 0.22651762, 0.12225543, 0.24379674)
+use_as_traction = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5505524, 1.9543138)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_ub8q0")
