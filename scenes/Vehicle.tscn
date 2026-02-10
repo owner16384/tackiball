@@ -192,50 +192,51 @@ properties/1/spawn = true
 properties/1/replication_mode = 1
 
 [node name="VehicleBody3D" type="VehicleBody3D"]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 collision_layer = 2
 script = ExtResource("1_g2lsg")
 
 [node name="vehicle-racer" type="MeshInstance3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 mesh = SubResource("ArrayMesh_jq86s")
 skeleton = NodePath("")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0.33510792, 0)
 shape = SubResource("ConvexPolygonShape3D_uud4n")
 
 [node name="rf_vw" type="VehicleWheel3D" parent="."]
-transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 0.23142505, 0.12225543, -0.25434285)
+transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 1.1, 0.5, -1.2)
 use_as_steering = true
 
 [node name="wheel-fr" type="MeshInstance3D" parent="rf_vw"]
-transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 0, 0)
+transform = Transform3D(-5, 0, -7.54979e-07, 0, 5, 0, 7.54979e-07, 0, -5, 0, 0, 0)
 mesh = SubResource("ArrayMesh_g8n1v")
 skeleton = NodePath("")
 
 [node name="lf_vw" type="VehicleWheel3D" parent="."]
-transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, -0.22709787, 0.12225543, -0.25434285)
+transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, -1.1, 0.5, -1.2)
 use_as_steering = true
 
 [node name="wheel-fl" type="MeshInstance3D" parent="lf_vw"]
-transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 0, 0)
+transform = Transform3D(-5, 0, -7.54979e-07, 0, 5, 0, 7.54979e-07, 0, -5, 0, 0, 0)
 mesh = SubResource("ArrayMesh_uojue")
 skeleton = NodePath("")
 
 [node name="lb_vw" type="VehicleWheel3D" parent="."]
-transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, -0.22709787, 0.12225543, 0.24379674)
+transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, -1.1, 0.5, 1.2)
 use_as_traction = true
 
 [node name="wheel-bl" type="MeshInstance3D" parent="lb_vw"]
-transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 0, 0)
+transform = Transform3D(-5, 0, -7.54979e-07, 0, 5, 0, 7.54979e-07, 0, -5, 0, 0, 0)
 mesh = SubResource("ArrayMesh_4uag7")
 skeleton = NodePath("")
 
 [node name="rb_vw" type="VehicleWheel3D" parent="."]
-transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 0.22651762, 0.12225543, 0.24379674)
+transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 1.1, 0.5, 1.2)
 use_as_traction = true
 
 [node name="wheel-br" type="MeshInstance3D" parent="rb_vw"]
-transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 0, 0)
+transform = Transform3D(-5, 0, -7.54979e-07, 0, 5, 0, 7.54979e-07, 0, -5, 0, 0, 0)
 mesh = SubResource("ArrayMesh_bt736")
 skeleton = NodePath("")
 
@@ -245,7 +246,7 @@ spring_length = 6.0
 script = ExtResource("3_vujux")
 
 [node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07489455, 0.9048952)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0513897, 6.7452297)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_ub8q0")
