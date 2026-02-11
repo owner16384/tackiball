@@ -2,14 +2,15 @@ class_name Vehicle
 extends VehicleBody3D
 
 @export_group("base movement")
-@export var engine_power: float = 10000.0
-@export var reverse_power: float = 1500.0
-@export var brake_power: float = 8.0
-@export var max_speed: float = 250.0
+@export var engine_power: float = 5000.0
+@export var reverse_power: float = 2000.0
+@export var stop_power: float = 1.0
+@export var brake_power: float = 0.5
+@export var max_speed: float = 500.0
 
 @export_group("steer")
-@export var max_steer: float = 0.3
-@export var min_steer_at_speed: float = 0.05
+@export var max_steer: float = 0.5
+@export var min_steer_at_speed: float = 0.08
 @export var steer_speed: float = 3
 
 @export_group("#*stabilisation")
@@ -32,10 +33,10 @@ extends VehicleBody3D
 @export var boost_force: float = 5000.0
 @export var max_boost: float = 100.0
 @export var boost_drain: float = 33.0
-@export var boost_max_speed: float = 55.0
+@export var boost_max_speed: float = 800.0
 
 @export_group("drift")
-@export var normal_wheel_friction: float = 3
+@export var normal_wheel_friction: float = 4
 @export var drift_wheel_friction: float = 1.2
 
 var boost_amount: float = 33.0
@@ -61,7 +62,7 @@ func _ready() -> void:
 		$SpringArm3D/Camera3D.current = false
 	
 	center_of_mass_mode = VehicleBody3D.CENTER_OF_MASS_MODE_CUSTOM
-	center_of_mass = Vector3(0, -0.4, 0)
+	center_of_mass = Vector3(0, 0.4, 0)
 	
 	mass = 150.0
 	linear_damp = 0.5
@@ -72,7 +73,6 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if !is_multiplayer_authority():
 		return
-	
 	current_speed = linear_velocity.length()
 	time_since_jump += delta
 	
@@ -95,6 +95,8 @@ func _ground_driving(delta: float) -> void:
 	
 	if input_throttle > 0:
 		engine_force = input_throttle * engine_power
+	elif is_equal_approx(input_throttle, 0.0):
+		engine_force = move_toward(engine_force, 0.0, delta * stop_power)
 	else:
 		engine_force = input_throttle * reverse_power
 	
@@ -103,16 +105,12 @@ func _ground_driving(delta: float) -> void:
 		engine_force *= (1.0 - speed_ratio * 0.8)
 	
 	var steer_input := Input.get_axis("right", "left")
-	if absf(steer_input) < 0.05:
-		steer_input = 0.0
 	
 	var effective_max_steer := lerpf(max_steer, min_steer_at_speed, speed_ratio)
 	var target_steer := steer_input * effective_max_steer
 	
 	steering = move_toward(steering, target_steer, steer_speed * delta)
 	
-	if absf(steering) < 0.01:
-		steering = 0.0
 	if Input.is_action_pressed("brake"):
 		brake = brake_power
 		engine_force = 0.0
@@ -196,7 +194,7 @@ func add_boost(amount: float) -> void:
 
 func _handle_drift() -> void:
 	var wants_drift := Input.is_action_pressed("drift") and is_grounded
-
+	
 	if wants_drift and not is_drifting:
 		is_drifting = true
 		_set_rear_wheel_friction(drift_wheel_friction)
