@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=4 uid="uid://6yhdtc6v8e8b"]
+[gd_scene load_steps=18 format=4 uid="uid://6yhdtc6v8e8b"]
 
 [ext_resource type="Script" uid="uid://s3v7em1vu4se" path="res://scripts/vehicle_scripts/vehicle.gd" id="1_g2lsg"]
 [ext_resource type="Texture2D" uid="uid://cbl6gi6a01h82" path="res://assests/GLB format/Textures/colormap.png" id="2_1lm87"]
 [ext_resource type="Script" uid="uid://gfyrb27ux56g" path="res://scripts/camera_spring_arm.gd" id="3_vujux"]
+[ext_resource type="Script" uid="uid://ddivvlflxkrl4" path="res://scripts/vehicle_scripts/movement.gd" id="4_vujux"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bm8bw"]
 resource_name = "colormap"
@@ -253,3 +254,14 @@ target_position = Vector3(0, -0.6, 0)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_ub8q0")
+
+[node name="movement" type="Node" parent="." node_paths=PackedStringArray("body", "model", "ground_ray", "wheel_fl", "wheel_fr", "wheel_bl", "wheel_br")]
+script = ExtResource("4_vujux")
+body = NodePath("..")
+model = NodePath("../vehicle-racer")
+ground_ray = NodePath("../GroundRay")
+wheel_fl = NodePath("../lf_vw")
+wheel_fr = NodePath("../rf_vw")
+wheel_bl = NodePath("../lb_vw")
+wheel_br = NodePath("../rb_vw")
+metadata/_custom_type_script = "uid://ddivvlflxkrl4"
